@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
-    protected $fillable=['title','slug', 'body'];
+    protected $fillable=['title', 'body'];
+
     public function User(){
         return $this->belongsTo(User::class);
+    }
+    //mutator
+    public function setTitleAttribute($value){
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = str_slug($value);
     }
 }
