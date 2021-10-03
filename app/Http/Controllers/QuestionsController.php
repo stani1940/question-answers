@@ -85,10 +85,12 @@ class QuestionsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Question $question
-     * @return Response
+     * @return RedirectResponse
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        $message = 'The Question is successfully deleted';
+        return redirect('/questions')->with('success', $message);
     }
 }
