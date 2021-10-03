@@ -28,7 +28,8 @@ class QuestionsController extends Controller
      */
     public function create():object
     {
-        return view('questions.create');
+        $question = new Question();
+        return view('questions.create',compact('question'));
     }
 
     /**
@@ -59,11 +60,11 @@ class QuestionsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Question $question
-     * @return Response
+     * @return View
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions.edit',compact('question'));
     }
 
     /**
@@ -71,11 +72,13 @@ class QuestionsController extends Controller
      *
      * @param  AskQuestionRequest  $request
      * @param Question $question
-     * @return Response
+     * @return  RedirectResponse
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+       $question->update($request->only('title','body'));
+       $message='The question has been updated!';
+       return redirect('/questions')->with('success',$message);
     }
 
     /**
